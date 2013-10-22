@@ -1,7 +1,5 @@
 package JDKVersion;
 
-use Data::Dump qw/dump/;
-
 sub parse {
     my $class = shift;
     my $version = shift;
@@ -82,23 +80,17 @@ sub next_security_alert {
 
 sub is_valid {
     my $version_name = shift;
-    if ($version_name =~ /^JDK\du(\d+)$/) {
+    if ($version_name =~ /^JDK\du(0|[1-9]\d+)$/) {
         my $num = $1;
-        return if _is_zero_ume($num);
         return 1;
     }
-    return;
+    return 0;
 }
 
 sub _get_family_and_update_number {
     my $version = shift;
     $version =~ /^JDK(?<family_number>\d+)u(?<update_number>\d+)$/;
     return ($+{family_number}, $+{update_number});
-}
-
-sub _is_zero_ume {
-    my $num = shift;
-    length $num != length int $num;
 }
 
 1;

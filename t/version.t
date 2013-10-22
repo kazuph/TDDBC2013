@@ -10,19 +10,19 @@ subtest "validかどうか調べよう" => sub {
         is JDKVersion::is_valid("JDK7u40"), 1;
     };
     subtest "hoge" => sub {
-        is JDKVersion::is_valid("hoge"), undef;
+        is JDKVersion::is_valid("hoge"), 0;
     };
     subtest "undef" => sub {
-        is JDKVersion::is_valid(undef), undef;
+        is JDKVersion::is_valid(undef), 0;
     };
     subtest "JDK7u9x" => sub {
-        is JDKVersion::is_valid("JDK7u9x"), undef;
+        is JDKVersion::is_valid("JDK7u9x"), 0;
     };
     subtest "JDK7u01(0埋めしない)" => sub {
-        is JDKVersion::is_valid("JDK7u01"), undef;
+        is JDKVersion::is_valid("JDK7u01"), 0;
     };
     subtest "JDK7u" => sub {
-        is JDKVersion::is_valid("JDK7u"), undef;
+        is JDKVersion::is_valid("JDK7u"), 0;
     };
     subtest "JDK7u100" => sub {
         is JDKVersion::is_valid("JDK7u100"), 1;
