@@ -50,38 +50,44 @@ subtest "parseする" => sub {
 };
 
 subtest "大小を比較する" => sub {
-    subtest "JDK7 小さい" => sub {
+    subtest "JDK7u40 < JDK7u51 は真" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
         my $u51 = JDKVersion->parse("JDK7u51");
         is $u40->lt($u51), 1;
     };
-    subtest "JDK7 大きい" => sub {
+    subtest "JDK7u40 > JDK7u51 は偽" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
         my $u51 = JDKVersion->parse("JDK7u51");
         is $u40->gt($u51), 0;
     };
-    subtest "JDK7 等しい" => sub {
+    subtest "JDK7u40はJDK7u40と等しい" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
         is $u40->eq($u40), 1;
     };
-    subtest "JDK8 小さい" => sub {
+    subtest "JDK7u40はJDK7u51と等しくない" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        my $u51 = JDKVersion->parse("JDK7u51");
+        is $u40->eq($u51), 0;
+    };
+    subtest "JDK7u40 < JDK8u0 は真" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
         my $j8u0 = JDKVersion->parse("JDK8u0");
         is $u40->lt($j8u0), 1;
     };
-    subtest "JDK8 大きい" => sub {
+    subtest "JDK7u40 > JDK8u0 は偽" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
         my $j8u0 = JDKVersion->parse("JDK8u0");
         is $u40->gt($j8u0), 0;
     };
-    subtest "等しい" => sub {
+    subtest "JDK7u40 < JDK8u51 は真" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
-        is $u40->eq($u40), 1;
+        my $j8u0 = JDKVersion->parse("JDK8u51");
+        is $u40->lt($j8u0), 1;
     };
-    subtest "等しくない" => sub {
+    subtest "JDK7u40 > JDK8u51 は偽" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
-        my $u51 = JDKVersion->parse("JDK7u51");
-        is $u40->eq($u51), 0;
+        my $j8u0 = JDKVersion->parse("JDK8u51");
+        is $u40->gt($j8u0), 0;
     };
 };
 
