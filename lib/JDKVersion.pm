@@ -67,6 +67,13 @@ sub next_limited_udpate {
     return $self;
 }
 
+sub next_critical_patch_update {
+    my $self = shift;
+    $self->{update_number} = 5 * (int($self->{update_number}/5) + 1);
+    $self->{update_number}++ if $self->{update_number} % 2 == 0;
+    return $self;
+}
+
 sub is_valid {
     my $version_name = shift;
     if ($version_name =~ /^JDK\du(\d+)$/) {

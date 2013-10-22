@@ -104,8 +104,13 @@ subtest "次のVersionを求める" => sub {
     };
     subtest "Critical Patch Update" => sub {
         my $u45 = JDKVersion->parse("JDK7u45");
-        my $u51 = $u45->next_limited_udpate;
+        my $u51 = $u45->next_critical_patch_update;
         is $u51->update_number, 51;
+    };
+    subtest "Critical Patch Update" => sub {
+        my $u44 = JDKVersion->parse("JDK7u44");
+        my $u45 = $u44->next_critical_patch_update;
+        is $u45->update_number, 45;
     };
 };
 
