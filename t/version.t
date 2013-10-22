@@ -50,10 +50,38 @@ subtest "parseする" => sub {
 };
 
 subtest "大小を比較する" => sub {
-    subtest "小さい" => sub {
+    subtest "JDK7 小さい" => sub {
         my $u40 = JDKVersion->parse("JDK7u40");
         my $u51 = JDKVersion->parse("JDK7u51");
         is $u40->lt($u51), 1;
+    };
+    subtest "JDK7 大きい" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        my $u51 = JDKVersion->parse("JDK7u51");
+        is $u40->gt($u51), 0;
+    };
+    subtest "JDK7 等しい" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        is $u40->eq($u40), 1;
+    };
+    subtest "JDK8 小さい" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        my $j8u0 = JDKVersion->parse("JDK8u0");
+        is $u40->lt($j8u0), 1;
+    };
+    subtest "JDK8 大きい" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        my $j8u0 = JDKVersion->parse("JDK8u0");
+        is $u40->gt($j8u0), 0;
+    };
+    subtest "等しい" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        is $u40->eq($u40), 1;
+    };
+    subtest "等しくない" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        my $u51 = JDKVersion->parse("JDK7u51");
+        is $u40->eq($u51), 0;
     };
 };
 

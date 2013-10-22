@@ -1,5 +1,7 @@
 package JDKVersion;
 
+use Data::Dump qw/dump/;
+
 sub parse {
     my $class = shift;
     my $version = shift;
@@ -14,19 +16,31 @@ sub parse {
 }
 
 sub family_number {
-    my $class = shift;
-    $class->{family_number};
+    my $self = shift;
+    $self->{family_number};
 }
 
 sub update_number {
-    my $class = shift;
-    $class->{update_number};
+    my $self = shift;
+    $self->{update_number};
 }
 
 sub lt {
-    my $class = shift;
+    my $self = shift;
     my $version_object = shift;
-    return 1;
+    $self->family_number.$self->update_number < $version_object->family_number.$version_object->update_number ? 1 : 0;
+}
+
+sub gt {
+    my $self = shift;
+    my $version_object = shift;
+    $self->family_number.$self->update_number > $version_object->family_number.$version_object->update_number ? 1 : 0;
+}
+
+sub eq {
+    my $self = shift;
+    my $version_object = shift;
+    $self->family_number.$self->update_number == $version_object->family_number.$version_object->update_number ? 1 : 0;
 }
 
 sub is_valid {
