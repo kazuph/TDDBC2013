@@ -1,32 +1,25 @@
 package JDKVersion;
 
-sub new {
+sub parse {
     my $class = shift;
-    my %args = @_ == 1 ? %{$_[0]} : @_;
-    bless \%args, $class;
+    my $versions = shift;
+    die 'parse error!' unless is_valid($versions);
+    bless { versions => $versions }, $class;
 }
 
 sub is_valid {
     my $version_name = shift;
     if ($version_name =~ /^JDK\du(\d+)$/) {
         my $num = $1;
-        if (&_is_zero_ume($num)) {
-            return 0;
-        } else {
-            return 1;
-        }
-    } else {
-        return 0;
+        return if _is_zero_ume($num);
+        return 1;
     }
+    return;
 }
 
 sub _is_zero_ume {
     my $num = shift;
-    if( length $num != length int $num ) {
-        return 1;
-    } else {
-        return 0;
-    }
+    length $num != length int $num;
 }
 
 1;
