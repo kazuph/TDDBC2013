@@ -49,4 +49,12 @@ subtest "parseする" => sub {
     };
 };
 
+subtest "大小を比較する" => sub {
+    subtest "小さい" => sub {
+        my $u40 = JDKVersion->parse("JDK7u40");
+        my $u51 = JDKVersion->parse("JDK7u51");
+        is $u40->lt($u51), 1;
+    };
+};
+
 done_testing;

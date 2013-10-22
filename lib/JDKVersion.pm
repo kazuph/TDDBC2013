@@ -2,13 +2,15 @@ package JDKVersion;
 
 sub parse {
     my $class = shift;
-    my $versions = shift;
-    die 'parse error!' unless is_valid($versions);
+    my $version = shift;
+    die 'parse error!' unless is_valid($version);
+
+    my ($family_number, $update_number) = _get_family_and_update_number($version);
     bless {
-        versions => $versions,
-        family_number => $1,
-        update_number => $2,
-    }, $class if $versions =~ /^JDK(\d+)u(\d+)$/;
+        version => $version,
+        family_number => $family_number,
+        update_number => $update_number,
+    }, $class;
 }
 
 sub family_number {
@@ -21,6 +23,12 @@ sub update_number {
     $class->{update_number};
 }
 
+sub lt {
+    my $class = shift;
+    my $version_object = shift;
+    return 1;
+}
+
 sub is_valid {
     my $version_name = shift;
     if ($version_name =~ /^JDK\du(\d+)$/) {
@@ -29,6 +37,12 @@ sub is_valid {
         return 1;
     }
     return;
+}
+
+sub _get_family_and_update_number {
+    my $version = shift;
+    $version =~ /^JDK(?<family_number>\d+)u(?<update_number>\d+)$/;
+    return ($+{family_number}, $+{update_number});
 }
 
 sub _is_zero_ume {
