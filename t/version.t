@@ -39,6 +39,14 @@ subtest "parseする" => sub {
     subtest "正式な値ならparseできる" => sub {
         lives_ok {JDKVersion->parse("JDK7u40")};
     };
+    subtest "familynumberが7" => sub {
+        my $v = JDKVersion->parse("JDK7u40");
+        is int $v->family_number, "7";
+    };
+    subtest "updatenumberが40" => sub {
+        my $v = JDKVersion->parse("JDK7u40");
+        is int $v->update_number, "40";
+    };
 };
 
 done_testing;
