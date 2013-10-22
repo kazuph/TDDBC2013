@@ -28,13 +28,31 @@ sub update_number {
 sub lt {
     my $self = shift;
     my $version_object = shift;
-    $self->family_number.$self->update_number < $version_object->family_number.$version_object->update_number ? 1 : 0;
+    if ($self->family_number < $version_object->family_number) {
+        return 1;
+    } elsif ($self->family_number > $version_object->family_number) {
+        return 0;
+    } else {
+        if ($self->update_number < $version_object->update_number) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 sub gt {
     my $self = shift;
     my $version_object = shift;
-    $self->family_number.$self->update_number > $version_object->family_number.$version_object->update_number ? 1 : 0;
+    if ($self->family_number > $version_object->family_number) {
+        return 1;
+    } elsif ($self->family_number < $version_object->family_number) {
+        return 0;
+    } else {
+        if ($self->update_number > $version_object->update_number) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 sub eq {
