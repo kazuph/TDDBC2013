@@ -31,6 +31,7 @@ subtest "validかどうか調べよう" => sub {
         is JDKVersion::is_valid("JDK8u0"), 1;
     };
 };
+
 subtest "parseする" => sub {
     subtest "不正な値でparseできない" => sub {
         dies_ok {JDKVersion->parse("hoge")};
@@ -39,4 +40,5 @@ subtest "parseする" => sub {
         lives_ok {JDKVersion->parse("JDK7u40")};
     };
 };
+
 done_testing;
