@@ -91,4 +91,22 @@ subtest "大小を比較する" => sub {
     };
 };
 
+subtest "次のVersionを求める" => sub {
+    subtest "Limited Update" => sub {
+        my $u45 = JDKVersion->parse("JDK7u45");
+        my $u60 = $u45->next_limited_udpate;
+        is $u60->update_number, 60;
+    };
+    subtest "Limited Update" => sub {
+        my $u60 = JDKVersion->parse("JDK7u60");
+        my $u80 = $u60->next_limited_udpate;
+        is $u80->update_number, 80;
+    };
+    subtest "Critical Patch Update" => sub {
+        my $u45 = JDKVersion->parse("JDK7u45");
+        my $u51 = $u45->next_limited_udpate;
+        is $u51->update_number, 51;
+    };
+};
+
 done_testing;

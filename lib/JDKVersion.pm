@@ -61,6 +61,12 @@ sub eq {
     $self->family_number.$self->update_number == $version_object->family_number.$version_object->update_number ? 1 : 0;
 }
 
+sub next_limited_udpate {
+    my $self = shift;
+    $self->{update_number} = 20 * (int($self->{update_number}/20) + 1);
+    return $self;
+}
+
 sub is_valid {
     my $version_name = shift;
     if ($version_name =~ /^JDK\du(\d+)$/) {
