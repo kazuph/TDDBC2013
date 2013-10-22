@@ -112,6 +112,11 @@ subtest "次のVersionを求める" => sub {
         my $u45 = $u44->next_critical_patch_update;
         is $u45->update_number, 45;
     };
+    subtest "next security alert" => sub {
+        my $u45 = JDKVersion->parse("JDK7u45");
+        my $u46 = $u45->next_security_alert;
+        is $u46->update_number, 46;
+    };
 };
 
 done_testing;

@@ -74,6 +74,12 @@ sub next_critical_patch_update {
     return $self;
 }
 
+sub next_security_alert {
+    my $self = shift;
+    $self->{update_number}++;
+    return $self;
+}
+
 sub is_valid {
     my $version_name = shift;
     if ($version_name =~ /^JDK\du(\d+)$/) {
