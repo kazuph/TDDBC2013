@@ -1,10 +1,8 @@
-#!/usr/bin/env perl
 use strict;
 use warnings;
 use utf8;
 use Test::More;
-use JDKVersion;
-# use_ok "JDKVersion";
+use_ok "JDKVersion";
 
 subtest "validかどうか調べよう" => sub {
     subtest "JDK7u40" => sub {
